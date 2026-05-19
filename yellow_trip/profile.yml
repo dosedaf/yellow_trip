@@ -1,0 +1,6 @@
+yellow_trip:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: ../data/taxi.duckdb

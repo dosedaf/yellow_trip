@@ -1,0 +1,16 @@
+ingestion/data
+ingestion/output.csv
+
+.venv
+
+__pycache__/
+*.pyc
+
+*.duckdb
+*.wal
+
+.env
+
+*.log
+
+data
