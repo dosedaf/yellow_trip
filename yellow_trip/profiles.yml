@@ -4,3 +4,4 @@ yellow_trip:
     dev:
       type: duckdb
       path: ../data/taxi.duckdb
+      schema: main

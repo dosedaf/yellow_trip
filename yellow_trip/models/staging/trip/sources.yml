@@ -1,10 +1,10 @@
 version: 2
 
 sources:
-  - name: taxi_raw
+  - name: trip
     meta:
       external_location: "/home/yoda/code/dataeng/project/yellow_trip/ingestion/data/*.parquet"
     tables:
-      - name: yellow_tripdata
+      - name: yellow_trip
         meta:
           external_location: "/home/yoda/code/dataeng/project/yellow_trip/ingestion/data/*.parquet"

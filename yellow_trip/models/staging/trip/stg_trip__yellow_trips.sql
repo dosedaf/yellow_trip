@@ -1,7 +1,5 @@
-{{ config(materialized='table') }}
-
 with source as (
-    select * from {{ source('taxi_raw', 'yellow_tripdata') }}
+    select * from {{ source('trip', 'yellow_trip') }}
 ),
 
 renamed as (
