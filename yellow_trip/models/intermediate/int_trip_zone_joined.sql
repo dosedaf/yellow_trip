@@ -9,7 +9,7 @@ select
       fare_amount,
       tip_amount,
       total_amount,
-      payment_type
+      payment_type,
       pu_zone.zone as pickup_zone,
       do_zone.zone as dropoff_zone,
       pu_zone.borough as pickup_borough,

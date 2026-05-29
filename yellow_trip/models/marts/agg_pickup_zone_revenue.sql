@@ -3,10 +3,11 @@ with ref as (
 ),
 
 aggregated as (
-  select 
+  select
     pickup_zone,
-    count(pickup_zone) as total_pickup
-  from int_trip_zone_joined 
+    count(*) as total_pickup,
+    sum(total_amount) as total_amount
+  from ref
   group by pickup_zone
 )
 

@@ -2,15 +2,12 @@ with ref as (
   select * from {{ ref('int_trip_zone_joined') }}
 ),
 
-pu as (
-  select pickup_zone from ref
-),
-
-
 aggregated as (
   select
-    pickup,
-    count(pickup_zone) as total_pickup
+    pickup_zone,
+    dropoff_zone,
+    count(*) as total,
+    sum(total_amount) as total_amount
   from ref
   group by pickup_zone, dropoff_zone
 )
