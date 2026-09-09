@@ -1,6 +1,11 @@
 ingestion/data
 ingestion/output.csv
 
+orchestration
+!orchestration/dags
+
+logs
+
 .venv
 
 __pycache__/
