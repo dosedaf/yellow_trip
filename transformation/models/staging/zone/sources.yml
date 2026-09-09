@@ -1,0 +1,7 @@
+version: 2
+
+sources:
+  - name: zone
+    schema: main
+    tables:
+      - name: taxi_zone_lookup

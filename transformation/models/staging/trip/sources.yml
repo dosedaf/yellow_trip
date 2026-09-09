@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: trip
+    config:
+      meta:
+        external_location: "../ingestion/data/*.parquet"
+    tables:
+      - name: yellow_trip
+        config:
+          meta:
+            external_location: "../ingestion/data/*.parquet"
