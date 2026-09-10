@@ -1,7 +1,7 @@
 ingestion/data
 ingestion/output.csv
 
-orchestration
+orchestration/*
 !orchestration/dags
 
 logs
