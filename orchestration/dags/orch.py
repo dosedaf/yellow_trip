@@ -1,7 +1,7 @@
-from airflow.sdk import dag, task, chain, task_group
+from airflow.sdk import CronDataIntervalTimetable, chain, dag, task, task_group
 import os
-
 from pathlib import Path
+
 import pendulum
 
 # utc aware
@@ -25,9 +25,9 @@ default_args = {
     dag_id="yellow_trip_orchestration",
     description="sigma dag",
     start_date=start_date,
-    schedule='@monthly',
+    schedule=CronDataIntervalTimetable('0 0 1 * *', timezone='UTC'),
     catchup=False,
-    default_args=default_args,
+    # default_args=default_args,
     doc_md="""
         based dag
     """,
@@ -40,7 +40,7 @@ def yellow_trip():
 
     @task.bash(cwd=str(INGESTION_DIR))
     def ingest() -> str:
-        return f'{VENV}/python ingest.py'
+        return f"{VENV}/python ingest_month.py --date {{{{ data_interval_start.strftime( '%Y-%m-%d' ) }}}}"
 
     @task_group(group_id='transform')
     def transform():
