@@ -1,6 +1,8 @@
 import os
+import argparse
 import requests
-from datetime import datetime
+import datetime
+from datetime import date
 
 # BASE_URL ="https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2025-02.parquet"
 BASE_URL ="https://d37ci6vzurychx.cloudfront.net/trip-data"
@@ -28,30 +30,32 @@ def download_file(url, save_path):
                         f.write(chunk)
 
             if os.path.getsize(save_path) < 1000:
-                print(f"Corrupted (too small): {url}")
+                print(f"corrupted (too small): {url}")
                 os.remove(save_path)
             else:
-                print(f"Downloaded: {save_path}")
+                print(f"succesfully downloaded")
 
         else:
-            print(f"Invalid response: {url} | type={content_type}")
+            print(f"invalid response: {url} | type={content_type}")
 
     except Exception as e:
-        print(f"Error downloading {url}: {e}")
+        print(f"error downloading {url}: {e}")
 
 
 def main():
-    for year in range(START_YEAR, END_YEAR+1):
-        months = generate_month(year)
-        
-        for month in months:
-            file_name = f'yellow_tripdata_{month}.parquet' 
-            url = f'{BASE_URL}/{file_name}'
-            save_path = os.path.join(OUTPUT_DIR, file_name)
-            
-            if not os.path.exists(save_path):
-                print('downloading')
-                download_file(url, save_path)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--date', type=datetime.date.fromisoformat, required=True, help='Date in YYYY-MM-DD format')
+    args = parser.parse_args()
+
+    date = args.date.replace(day=1)
+
+    file_name = f'yellow_tripdata_{date.year}-{date.month:02d}.parquet' 
+    url = f'{BASE_URL}/{file_name}'
+    save_path = os.path.join(OUTPUT_DIR, file_name)
+    
+    if not os.path.exists(save_path):
+        print(f'downloading: {save_path}')
+        download_file(url, save_path)
 
 if __name__ == "__main__":
     main()
