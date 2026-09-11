@@ -1,6 +1,6 @@
 temporary readme.
 
-create .venv, install all deps, source it
+create .venv, install all deps, source it (duckdb)
 add orch dir to airflow path
 airflow standalone
 

@@ -25,7 +25,7 @@ default_args = {
     dag_id="yellow_trip_orchestration",
     description="sigma dag",
     start_date=start_date,
-    schedule=None,
+    schedule='@monthly',
     catchup=False,
     default_args=default_args,
     doc_md="""
@@ -44,15 +44,15 @@ def yellow_trip():
 
     @task_group(group_id='transform')
     def transform():
-        @task.bash(cwd=str(TRANSFORMATION_DIR))
+        @task.bash(cwd=str(TRANSFORMATION_DIR), execution_timeout=pendulum.duration(minutes=30))
         def dbt_seed():
             return f'{VENV}/dbt seed'
 
-        @task.bash(cwd=str(TRANSFORMATION_DIR))
+        @task.bash(cwd=str(TRANSFORMATION_DIR), execution_timeout=pendulum.duration(minutes=30))
         def dbt_run():
             return f'{VENV}/dbt run'
 
-        @task.bash(cwd=str(TRANSFORMATION_DIR))
+        @task.bash(cwd=str(TRANSFORMATION_DIR), execution_timeout=pendulum.duration(minutes=30))
         def dbt_test():
             return f'{VENV}/dbt test'
 
